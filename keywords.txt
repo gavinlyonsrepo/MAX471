@@ -1,0 +1,23 @@
+# -----------------------------------------
+# Syntax colouring for MAX471 library
+# -----------------------------------------
+
+# Datatypes (such as objects)
+MAX471	KEYWORD1
+
+#Methods / functions
+VoltageRead	KEYWORD2
+CurrentRead	KEYWORD2
+
+# Constants
+
+VCC_BAT	LITERAL1
+VCC_3_3	LITERAL1
+VCC_5	LITERAL1
+ADC_8_bit	LITERAL1
+ADC_9_bit	LITERAL1
+ADC_10_bit	LITERAL1
+ADC_11_bit	LITERAL1
+ADC_12_bit	LITERAL1
+ADC_14_bit	LITERAL1
+ADC_16_bit	LITERAL1
