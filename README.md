@@ -23,6 +23,8 @@ Small library for the MAX471 current and voltage sensor for the Arduino eco-syst
 * Author: Gavin Lyons
 * Arduino IDE: 1.8.16 
 * Copyright: GNU GPL v3
+* [Example in a project](https://github.com/gavinlyonsrepo/MAX471_PVI_METER)
+
 
 Installation
 ------------------------------
@@ -38,28 +40,25 @@ See link below for instruction for this and for the other methods too.
 Hardware
 ----------------------------
 
-Tested with this module pictured. There is a  few different designs of this module some with less connections and circuitry and you can also purchase the barebones MAX471 chip.
+Tested with the module pictured. There is a  few different designs of this module  and you can also purchase the MAX471 chip.
 Some of these modules don't have some or all of these components just breakout  connectors so user must add them. 
-The resistor divider network on board divides Vout to VT, it divides voltage reading by 0.2.
-So we multiply by 5 in software to "restore" value. This ratio is defined by RS_VOLT_DIVIDE define
-in header file.  If using different resistor values this will have to be  adjusted.
+The resistor divider network on board divides Vin (PSU)  to VT,
+So we must multiply by 5 in software to "restore" value. This ratio is defined by RS_VOLT_DIVIDE define in header file.  If using different resistor values this will have to be  adjusted.
 
-1. VT =  (R2/(R2+R1)) * Vout 
-2. VT = (7.5K/37.5)* Vout 
-3. VT = 0.2*Vout
-3. VT*5 = Vout
+1. VT =  (R2/(R2+R1)) * Vin
+2. VT = (7.5K/37.5)* Vin
+3. VT*5 = Vin
 
-The other resistor(2K) and a capacitor are on current signal line (AT)
+The other resistor(2K) and a capacitor on current signal line (AT)
 for transient suppression. 
 
-There is a full schematic and example of this module and library in a project here at 
-[LINK](https://github.com/gavinlyonsrepo/MAX471_PVI_METER)
+![ s](https://github.com/gavinlyonsrepo/MAX471/blob/main/extras/image/sch.png)
 
 ![ h](https://github.com/gavinlyonsrepo/MAX471/blob/main/extras/image/max471.jpg)
 
-1. Connect two ADC pins for voltage = VT &  current = AT. 
-2. Connect Vout(+RS) to external PSU to drive load.
-3. Connect Vin(-RS) to load/circuit/device under test.
+1. Connect two ADC pins to measure : voltage = VT &  current = AT. 
+2. Connect Vin(+RS) to external PSU to drive load.
+3. Connect Vout(-RS) to load/circuit/device under test.
 
 Software
 ------------------------
@@ -67,10 +66,10 @@ Example file outputs data to Serial monitor.
 When declaring the constructor list, possible values for ADC resolution and Voltage reference(mV) are in keywords.txt. If user wishes to use a custom value not in this list , 
 cast the custom int value to the relevant enum. 
 
-If user is using an ATmega328 and wishes to use internal battery reference  voltage.
-They can pass VCC_BAT to constructor. Using this requires battery voltage for best result
-see notes in function header in cpp file.  If using another IC other than ATmega328p
-then  comment out the define in header file to avoid compile errors.
+If user is using an ATmega328 based unit and wishes to use internal battery reference voltage.
+They can pass VCC_BAT to constructor. Using this requires calibration for best result.
+See notes in function header in cpp file for how to.  If using another IC other than ATmega328
+then comment out the define in header file to avoid compile errors.
 
 *Files*
 
